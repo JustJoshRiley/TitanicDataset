@@ -25,7 +25,15 @@
 // Or if property = 'age' -> [40, 26, 22, 28, 23, 45, 21, ...]
 
 const getAllValuesForProperty = (data, property) => {
-	return []
+	let all_properties = [] ;
+	data.filter(people => {
+		if (people.fields[property] != 'undefined') {
+			return people;
+		}
+	}).forEach(person => {
+		all_properties.push(person.fields[property])
+	})
+	return all_properties;
 }
 
 // 2 -------------------------------------------------------------
@@ -34,7 +42,17 @@ const getAllValuesForProperty = (data, property) => {
 // array of all the male passengers [{...}, {...}, {...}, ...]
 
 const filterByProperty = (data, property, value) => {
-	return []
+	let all_properties = [];
+	data.filter( people => {
+		if (people.fields[property] != "undefined") {
+			return people
+		}
+	}).forEach(person => {
+		if (person.fields[property] === value) {
+			all_properties.push(person)
+		}
+	})
+	return all_properties
 }
 
 // 3 -------------------------------------------------------------
@@ -43,7 +61,13 @@ const filterByProperty = (data, property, value) => {
 // given property have been removed
 
 const filterNullForProperty = (data, property) => {
-	return []
+	let all_properties = [] ;
+	data.forEach(person => {
+		if (person.fields[property] != undefined) {
+			all_properties.push(person)
+		}
+	})
+	return all_properties;
 }
 
 // 4 -------------------------------------------------------------
@@ -52,7 +76,13 @@ const filterNullForProperty = (data, property) => {
 // Return the total of all values for a given property. This
 
 const sumAllProperty = (data, property) => {
-	return 0
+	let sum = 0;
+	data.forEach(person => {
+		if (person.fields[property] != undefined) {
+			sum += person.fields[property]
+		}
+	})
+	return sum
 }
 
 
@@ -67,7 +97,18 @@ const sumAllProperty = (data, property) => {
 // at Cherbourg, 77 emabrked at Queenstown, and 2 are undedfined
 
 const countAllProperty = (data, property) => {
-	return {}
+	let all = {}
+	data.forEach(person => {
+		// if the property is not in the dictionary
+		// add one to the dictionary
+		if ( all[person.fields[property]] === undefined) {
+			all[person.fields[property]] = 1
+		} else {
+			all[person.fields[property]] += 1		
+		}
+	})
+	return all
+
 }
 
 
@@ -77,7 +118,32 @@ const countAllProperty = (data, property) => {
 // of items in each bucket.
 
 const makeHistogram = (data, property, step) => {
-	return []
+	list = []
+	let bucket = 0
+	data.forEach(person => {
+		if (person.fields[property] !== undefined) {
+			bucket = Math.floor(person.fields[property] / step)
+			if ( list[bucket] === undefined ) {
+				list[bucket] = 1;
+			} else {
+				list[bucket] += 1;
+			}
+			
+		}
+	})
+	for (let i = 0; i < list.length; i++) { 
+		if (list[i] === undefined) {
+			list[i] = 0;
+		}
+	  }
+	return list
+	// return a list of values (vals) where vals[i] == the number
+	// of passengers in the i-th "bucket"
+
+	// example. data = [{'age': 12}, {'age': 17}, {'age':25}], step = 10
+	// return [0,2,1]
+	// example. data = [{'age': 12}, {'age': 17}, {'age':25}], step = 5
+	// return [0,0,1,1,0, 1]
 }
 
 // 7 ------------------------------------------------------------
@@ -86,7 +152,21 @@ const makeHistogram = (data, property, step) => {
 // to divide each value by the maximum value in the array.
 
 const normalizeProperty = (data, property) => {
-	return []
+	let list = []
+	data.forEach(person => {
+		if (person.fields[property] !== undefined) {
+			list.push(person.fields[property])
+		}
+	})
+	maxNum = Math.max(...list)
+	// imagine list = [1,2,3]
+	// Math.max(list) == Math.max([1,2,3]) X
+	// but
+	// Math.max(...list) == Math.max(1,2,3)
+	let newList = list.map(number => {
+		return (number / maxNum)
+	})
+	return newList
 }
 
 // 8 ------------------------------------------------------------
@@ -97,7 +177,15 @@ const normalizeProperty = (data, property) => {
 // would return ['male', 'female']
 
 const getUniqueValues = (data, property) => {
-	return []
+	list = []
+	data.forEach(person => {
+		// if item  value is not in list
+		// add item value to the list
+		if (list.includes(person.fields[property]) === false) {
+			list.push(person.fields[property])
+		}
+	})
+	return list
 }
 
 // --------------------------------------------------------------

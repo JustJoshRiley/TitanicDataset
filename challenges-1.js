@@ -22,7 +22,9 @@
 // Returns a number.
 
 const getTotalPassengers = (data) => {
-	return 0
+	let count = 0;
+	data.forEach(person => count += 1);
+	return count;
 }
 
 // 2 ---------------------------------------------------------------
@@ -31,7 +33,13 @@ const getTotalPassengers = (data) => {
 // Return a number.
 
 const getSurvivorCount = (data) => {
-	return 0
+	let count = 0;
+	data.forEach(person => {
+		if (person.fields['survived'] === 'Yes') {
+			count += 1;
+		}
+	})
+	return count;
 }
 
 // 3 ---------------------------------------------------------------
@@ -40,7 +48,13 @@ const getSurvivorCount = (data) => {
 // Return a number.
 
 const getCasualityCount = (data) => {
-	return 0
+	let count = 0;
+	data.forEach(person => {
+		if (person.fields['survived'] === 'No') {
+			count += 1;
+		}
+	})
+	return count;
 }
 
 // 4 ---------------------------------------------------------------
@@ -50,7 +64,13 @@ const getCasualityCount = (data) => {
 // Return a number
 
 const countPassengersInClass = (data, pclass) => {
-	return 0
+	let count = 0;
+	data.forEach(person => {
+		if (person.fields.pclass === pclass) {
+			count += 1;
+		}
+	})
+	return count;
 }
 
 // 5 ---------------------------------------------------------------
@@ -59,7 +79,15 @@ const countPassengersInClass = (data, pclass) => {
 // Return the count of survivors in that pclass.
 
 const getSurvivorCountForClass = (data, pclass) => {
-	return 0
+	let count = 0;
+	data.filter(people => {
+		if (people.fields.pclass === pclass) {
+			if (people.fields.survived === 'Yes') {
+				count += 1;
+			}
+		}
+	})
+	return count	
 }
 
 // 6 ---------------------------------------------------------------
@@ -68,7 +96,15 @@ const getSurvivorCountForClass = (data, pclass) => {
 // the number of passengers who did not survive for that class. 
 
 const getCasualityCountForClass = (data, pclass) => {
-	return 0
+	let count = 0;
+	data.filter(people => {
+		if (people.fields.pclass === pclass) {
+			if (people.fields.survived === 'No') {
+				count += 1;
+			}
+		}
+	})
+	return count	
 }
 
 // 7 ---------------------------------------------------------------
@@ -76,7 +112,17 @@ const getCasualityCountForClass = (data, pclass) => {
 // passenger data where the age is missing. 
 
 const getMinAge = (data) => {
-	return 0
+	let minAge = 10;
+	data.filter(people => {
+		if (typeof people.fields.age != "undefined") {
+			return people
+		}
+	}).forEach(person => {
+		if (person.fields.age < minAge) {
+			minAge = person.fields.age 
+		} 
+	})
+	return minAge;
 }
 
 // 8 ---------------------------------------------------------------
@@ -84,7 +130,17 @@ const getMinAge = (data) => {
 // age is missing.
 
 const getMaxAge = (data) => {
-	return 0
+	let maxAge = 0;
+	data.filter(people => {
+		if (typeof people.fields.age != "undefined") {
+			return people
+		}
+	}).forEach(person => {
+		if (person.fields.age > maxAge) {
+			maxAge = person.fields.age 
+		} 
+	})
+	return maxAge;
 }
 
 // 9 ---------------------------------------------------------------
@@ -94,7 +150,13 @@ const getMaxAge = (data) => {
 // embarkation code. Return the count of passenegers with that code.
 
 const getEmbarkedCount = (data, embarked) => {
-	return 0
+	let count = 0;
+	data.filter(people => {
+		if (people.fields.embarked === embarked) {
+			count += 1;
+		}
+	})
+	return count	
 }
 
 // 10 ---------------------------------------------------------------
@@ -102,7 +164,17 @@ const getEmbarkedCount = (data, embarked) => {
 // for some passengers you'll need to filter this out!
 
 const getMinFare = (data) => {
-	return -1
+	let minFare = 10;
+	data.filter(people => {
+		if (typeof people.fields.fare != "undefined") {
+			return people
+		}
+	}).forEach(person => {
+		if (person.fields.fare < minFare) {
+			minFare = person.fields.fare 
+		} 
+	})
+	return minFare;
 }
 
 // 11 ---------------------------------------------------------------
@@ -110,7 +182,17 @@ const getMinFare = (data) => {
 // passengers are missing data for fare. Be sure to filter these! 
 
 const getMaxFare = (data) => {
-	return 0
+	let maxFare = 0;
+	data.filter(people => {
+		if (typeof people.fields.fare != "undefined") {
+			return people
+		}
+	}).forEach(person => {
+		if (person.fields.fare > maxFare) {
+			maxFare = person.fields.fare 
+		} 
+	})
+	return maxFare;
 }
 
 // 12 ---------------------------------------------------------------
@@ -118,7 +200,13 @@ const getMaxFare = (data) => {
 // "sex" property that is either "male" or "female"
 
 const getPassengersByGender = (data, gender) => {
-	return 0
+	let count = 0;
+	data.forEach(person => {
+		if (person.fields.sex === gender) {
+			count += 1;
+		}
+	})
+	return count
 }
 
 // 13 ---------------------------------------------------------------
@@ -127,14 +215,30 @@ const getPassengersByGender = (data, gender) => {
 // to the "sex" property and check the "survived" property. 
 
 const getSurvivorsByGender = (data, gender) => {
-	return 0
+	let count = 0;
+	data.filter(people => {
+		if (people.fields.sex === gender) {
+			if (people.fields.survived === "Yes") {
+				count += 1;
+			}
+		}
+	})
+	return count;
 }
 
 // 14 ---------------------------------------------------------------
 // Return the number of passengers who did not survived by gender. 
 
 const getCasualitiesByGender = (data, gender) => {
-	return 0
+	let count = 0;
+	data.filter(people => {
+		if (people.fields.sex === gender) {
+			if (people.fields.survived === "No") {
+				count += 1;
+			}
+		}
+	})
+	return count;
 }
 
 // 15 --------------------------------------------------------------
@@ -143,7 +247,15 @@ const getCasualitiesByGender = (data, gender) => {
 // where the fare is missing! 
 
 const getTotalFare = (data) => {
-	return 0
+	let totalFare = 0;
+	data.filter(people => {
+		if (people.fields.fare != "undefined") {
+			return people;
+		}
+	}).forEach(person => {
+		totalFare += person.fields.fare;
+	})
+	return totalFare;
 }
 
 // 16 --------------------------------------------------------------
@@ -152,7 +264,17 @@ const getTotalFare = (data) => {
 // missing a fare! 
 
 const getAverageFare = (data) => {
-	return 0
+	let totalFare = 0;
+	let count = 0
+	data.filter(people => {
+		if (people.fields.fare != "undefined") {
+			return people;
+		}
+	}).forEach(person => {
+		count += 1;
+		totalFare += person.fields.fare;
+	})
+	return (totalFare / count);
 }
 
 // 17 --------------------------------------------------------------
@@ -164,16 +286,36 @@ const getAverageFare = (data) => {
 // 4 + 5 = 9 / 2 median is 4.5!
 
 const getMedianFare = (data) => {
-	return 0
-}
+	all_fares = []
+	data.forEach(person => {
+		if (typeof person.fields.fare != "undefined") {
+			all_fares.push(person.fields.fare)
+		}
+	})
+	all_fares=all_fares.sort(function(a, b){return a - b})
 
+	middle_fare = (all_fares.length - 1) / 2
+	if (all_fares.length % 2 === 0) {
+		return ( all_fares[middle_fare] + all_fares[ middle_fare + 1] ) / 2 ;
+	} else {
+		return all_fares[ middle_fare ];
+	}
+}
 // 18 --------------------------------------------------------------
 // Return the average age of all passengers. Add all ages and divide 
 // by the number of passenegers. Be sure to filter where ages are not 
 // available. 
 
 const getAverageAge = (data) => {
-	return 0
+	let age = 0;
+	let count = 0;
+	data.forEach(person => {
+		if (typeof person.fields.age != "undefined") {
+			age += person.fields.age;
+			count += 1;
+		}
+	})
+	return age / count;
 }
 
 // 19 --------------------------------------------------------------
@@ -181,7 +323,19 @@ const getAverageAge = (data) => {
 // finding the middle value. 
 
 const getMedianAge = (data) => {
-	return 0
+	all_ages = [];
+	data.forEach(person => {
+		if (typeof person.fields.age != "undefined") {
+			all_ages.push(person.fields.age)
+		}
+	})
+	all_ages.sort(function(a, b){return a - b})
+	middle_age = Math.round((all_ages.length - 1) / 2);
+	if ( all_ages.length % 2 === 0) {
+		return ( all_ages[middle_age] + all_ages[middle_age + 1] ) / 2;
+	} else {
+		return all_ages[ middle_age ];
+	}
 }
 
 // 20 --------------------------------------------------------------
@@ -189,7 +343,19 @@ const getMedianAge = (data) => {
 // the total number. 
 
 const getAverageAgeByGender = (data, gender) => {
-	return 0
+	let age = 0;
+	let count = 0;
+	data.filter(people => {
+		if (people.fields.sex === gender) {
+			if ( typeof people.fields.age != "undefined") {
+				return people;
+			}
+		}
+	}).forEach(person => {
+		age += person.fields.age;
+		count += 1
+	})
+	return (age / count)
 }
 
 // --------------------------------------------------------------

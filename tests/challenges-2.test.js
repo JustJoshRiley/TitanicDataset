@@ -28,43 +28,13 @@ beforeAll((done) => {
 // When you are ready to start on challenge 2 remove the word skip from 
 // the line below: describe.skip() -> describe()
 
-describe.skip('Challenge 2 Titanic', () => {
+describe('Challenge 2 Titanic', () => {
 
 	// Beucause these tests return long arrays of data it was 
 	// impractical to hard code all these arrays here so the 
 	// below generates the lists from the data! The code below 
 	// are the answers to the questions. Don't peak unless you 
 	// are really stuck on a problem. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	test('Test getAll', () => {
 		const allFares = data.map(p => p.fields.fare)
@@ -155,7 +125,7 @@ describe.skip('Challenge 2 Titanic', () => {
 			return acc 
 		}, [])
 
-		const fares = data.filter(p => p.fields.age !== undefined).reduce((acc, p) => {
+		const fares = data.filter(p => p.fields.fare !== undefined).reduce((acc, p) => {
 			if (acc[Math.floor(p.fields.fare / 10)] === undefined) {
 				acc[Math.floor(p.fields.fare / 10)] = 1
 			} else {
