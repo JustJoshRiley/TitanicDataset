@@ -5,18 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Titanic Dataset</title>
+    <style>
+        #titanicSorted {
+            display: flex;
+            flex-wrap: wrap;
+            border: solid 3px cornflowerblue;
+        }
+        #titanicUnsorted {
+            border: solid 3px gold;
+        }
+    </style>
 </head>
 <body>
+    
     <h1>Titanic Dataset</h1>
     <h4>Key:</h4>
     <ul>
-        <li>Women = Pink</li>
-        <li>Men = Black</li>
-        <li>Didn't survive = Circle and opacity</li>
-        <li>More than 10$ fare = border red</li>
-        <li>Less than 10$ fare = border blue</li>
+        <li>Women = Circle</li>
+        <li>Men = Square</li>
+        <li>Didn't survive = opacity</li>
+        <li>Survived = No opacity</li>
+        <li>Sorted By Survived</li>
     </ul>
-    <div style="width: 100vw; height: 100vh;" id="titanic"></div>
+    <div id="titanic"></div>
+
+    <div id="passenger-details"></div>
+    
+
 </body>
     <script type="module" src="./index.js"> </script>
 </html>
